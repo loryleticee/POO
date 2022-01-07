@@ -37,12 +37,32 @@ class AppController
         // $borrow1->setReturn_date(10, "week");
         $entityManager->persist($borrow1);
         
-        $entityManager->flush();
         try {
+            $entityManager->flush();
         } catch (\Exception $err) {
-
+            print("Une erreur s'est produite, veuillez vérifier vos mails pour plus de détails");
+            $mail = new Mail\Message();
+            $mail->setBody("$err");
+            $mail->setFrom('infos@loryleticee.fr', "S");
+            $mail->addTo('api6@loryleticee.fr', 'Name of recipient');
+            $mail->setSubject('TestSubject');
+            
+            $transport = new Mail\Transport\Sendmail();
+            $transport->send($mail);
         }
     }
     
+    public function ShowVisitors()
+    {
+        $entityManager = Em::getEntityManager();
+        $visitorRepository = new AbstractRepository($entityManager, new ClassMetadata("App\Entity\Visitor"));
+        echo (Serializer::getSerializer()->serialize($visitorRepository->findAll(), 'json'));
+    }
 
+    public function ShowBorrows()
+    {
+        $entityManager = Em::getEntityManager();
+        $borrowRepository = new AbstractRepository($entityManager, new ClassMetadata("App\Entity\Borrow"));
+        echo (Serializer::getSerializer()->serialize($borrowRepository->findAll(), 'json'));
+    }
 }
