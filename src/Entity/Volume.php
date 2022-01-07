@@ -1,9 +1,22 @@
 <?php
+
 namespace App\Entity;
 
-abstract class Volume extends Document{
+use Doctrine\ORM\Mapping as ORM;
+
+/** 
+ * @ORM\MappedSuperclass 
+ * */
+abstract class Volume extends Document
+{
+    /**
+     * @ORM\Column(length="100")
+     */
     private string $author;
 
+    /**
+     * @param string $title Titre du volume
+     */
     public function __construct(string $title, string $author)
     {
         parent::__construct($title);
@@ -12,8 +25,8 @@ abstract class Volume extends Document{
 
     /**
      * Get the value of author
-     */ 
-    public function getAuthor() : string
+     */
+    public function getAuthor(): string
     {
         return $this->author;
     }
@@ -22,8 +35,8 @@ abstract class Volume extends Document{
      * Set the value of author
      *
      * @return  self
-     */ 
-    public function setAuthor($author)
+     */
+    public function setAuthor(string $author) : self
     {
         $this->author = $author;
 

@@ -1,8 +1,16 @@
 <?php
-
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ */
 final class Book extends Volume {
+  
+    /**
+     * ORM\Column(type="integer")
+     */
     private int $available = 1;
 
     public function __construct(string $title, string $author)

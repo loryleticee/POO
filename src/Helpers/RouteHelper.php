@@ -1,13 +1,7 @@
 <?php 
 namespace App\Helpers;
 
-class Route {
-    private $tutu;
-
-    public function __construct()
-    {
-        $this->tutu = "toto";
-    } 
+class RouteHelper {
 
     public static function redirect(string $url) : void
     {

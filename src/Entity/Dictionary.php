@@ -1,7 +1,17 @@
 <?php
+
 namespace App\Entity;
 
-final class Dictionary  extends Volume {
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ */
+final class Dictionary  extends Volume
+{
+    /**
+     * @ORM\Column(length="100")
+     */
     private string $editor;
 
     public function __construct(string $editor, string $auteur, string $title)
@@ -12,8 +22,8 @@ final class Dictionary  extends Volume {
 
     /**
      * Get the value of editor
-     */ 
-    public function getEditor()
+     */
+    public function getEditor() : string
     {
         return $this->editor;
     }
@@ -22,8 +32,8 @@ final class Dictionary  extends Volume {
      * Set the value of editor
      *
      * @return  self
-     */ 
-    public function setEditor($editor)
+     */
+    public function setEditor(string $editor) : self
     {
         $this->editor = $editor;
 

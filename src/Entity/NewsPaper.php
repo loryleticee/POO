@@ -1,10 +1,17 @@
 <?php
 namespace App\Entity;
 
-// Alias
+use Doctrine\ORM\Mapping as ORM;
 use \DateTimeImmutable as dateImmut;
 
+/**
+ * @ORM\Entity
+ */
 final class NewsPaper extends Document {
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
     private dateImmut $release_date;
 
     public function __construct(string $title, dateImmut $d)
@@ -12,7 +19,6 @@ final class NewsPaper extends Document {
         parent::__construct($title);
         $this->release_date = $d;
     }
-
 
     /**
      * Get the value of release_date
