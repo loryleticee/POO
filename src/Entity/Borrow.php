@@ -9,7 +9,7 @@ use \DateTime;
 /**
  * @ORM\Entity
  */
-class Borrow
+final class Borrow
 {
     /**
      * @ORM\Id
