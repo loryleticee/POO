@@ -1,17 +1,17 @@
 <?php
 namespace App\Controller;
 
-use App\Helpers\SerializeHelper as Serializer;
 use Router\Router;
 
-class AppController
+final class AppController extends AbstractController
 {
-    public static function index()
+    public function index(): void
     {
-        print_r(Serializer::getSerializer()->serialize(["Home"=> "Hello World"], 'json'));
+        print_r($this->serialize(["Home" => "Hello World"], 'json'));
     }
 
-    public function error404() {
+    public function error404(): void
+    {
         Router::redirect("404");
     }
 }

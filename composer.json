@@ -1,6 +1,6 @@
 {
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "App\\": "./src/",
             "Router\\": "./routes/"
         }
@@ -13,6 +13,7 @@
         "symfony/serializer": "^6.0",
         "symfony/property-access": "^6.0",
         "symfony/http-foundation": "^6.0",
-        "laminas/laminas-mail": "^2.15"
+        "laminas/laminas-mail": "^2.15",
+        "doctrine/annotations": "^1.13"
     }
 }

@@ -11,25 +11,9 @@ class Router {
     public array $posts = [];
     public array $puts = [];
 
-    public function __construct(string $url, mixed $puts, ?array $posts = [])
+    public function __construct(string $url)
     {
         $this->url = trim($url, '/');   
-        
-        if(is_resource($puts)) {
-            $putdata='';
-            while ($data = fread($puts, $CHUNK = 1024)) { 
-                $putdata .= $data;
-            }
-            parse_str($putdata, $result);
-            
-            if(count($result)) {
-                $this->puts = $result;
-            }
-        }
-
-        if($posts) {
-            $this->posts = $posts;
-        }
     } 
 
     public function get(string $path, string $action)
@@ -38,12 +22,12 @@ class Router {
     }
     public function post(string $path, string $action)
     { 
-        $this->routes["POST"][] = new Route($path, $action, null, $this->posts);
+        $this->routes["POST"][] = new Route($path, $action);
     }
 
     public function put(string $path, string $action)
     { 
-        $this->routes["PUT"][] = new Route($path, $action, $this->puts);
+        $this->routes["PUT"][] = new Route($path, $action);
     }
 
     public function run()

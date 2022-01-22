@@ -5,15 +5,12 @@ namespace Router;
 class Route {
     public string $path;
     public string $action;
-    public array  $posts;
     public array  $matches;
 
-    public function __construct( string $path, string $action,?array $puts = [], ?array $posts = [])
+    public function __construct( string $path, string $action)
     {
         $this->path = trim($path, '/');  
-        $this->action = $action;  
-        $this->posts = $posts;  
-        $this->puts = $puts;  
+        $this->action = $action; 
     }
 
     public function matches(string $url)
@@ -34,12 +31,6 @@ class Route {
         $params = explode('@', $this->action);
         $controller = new $params[0]();
         $method = $params[1];
-        if(count($this->posts)) {
-            return $controller->$method($this->posts);
-        }
-        if(count($this->puts)) {
-            return $controller->$method($this->matches[1], $this->puts);
-        }
         
         return isset($this->matches[1]) ? $controller->$method($this->matches[1]) : $controller->$method();
     }

@@ -1,28 +1,26 @@
 <?php
-namespace App\Controller;
-header("Access-Control-Allow-Origin: *");
-header('Content-Type: application/json; charset=utf-8');
 
-use App\Entity\Book;
-use App\Helpers\EntityManagerHelper as Em;
+namespace App\Controller;
+
+use App\Entity\NewsPaper;
+use App\Helpers\EntityManagerHelper;
 use App\Models\AbstractRepository;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
-final class BookController extends AbstractController
+final class NewspaperController extends AbstractController
 {
-    public array $NEEDLES = ['title' => '', 'author' => '',];
+    public array $NEEDLES = ['title' => '', 'release_date' => '',];
 
-    public function index() :void
+    public function showOne(string $sId)
     {
-        try {
-            $entityManager = Em::getEntityManager();
-            $bookRepository = new AbstractRepository($entityManager, new ClassMetadata("App\Entity\Book"));
-           
-            print($this->serialize($bookRepository->findAll(), 'json'));
+        $sId = (int) $sId;
 
-        } catch (\Throwable $e) {
-            exit("Une erreur est survenu lors de la récupération des livres.");
-        }
+        $em = EntityManagerHelper::getEntityManager();
+        $repository = new EntityRepository($em, new ClassMetadata("App\Entity\NewsPaper"));
+        $oNewspaper = $repository->find($sId);
+       
+        print($this->serialize($oNewspaper, "json"));
     }
 
     public function add() :void
@@ -43,24 +41,27 @@ final class BookController extends AbstractController
                 exit($e->getMessage());
             }
         }
-
-        $book = new Book($this->NEEDLES['title'], $this->NEEDLES['author']);
-        $entityManager = Em::getEntityManager();
+        print($this->NEEDLES['release_date']);
+        var_dump(\DateTime::createFromFormat("d-M-Y H:i:s" ,$this->NEEDLES['release_date']));
+        die('---END---');
+        $book = new NewsPaper($this->NEEDLES['title'], \DateTimeImmutable::createFromFormat("d-M-Y H:i:s", \DateTime::createFromFormat("d-M-Y H:i:s" ,$this->NEEDLES['release_date'])));
+        $entityManager = EntityManagerHelper::getEntityManager();
         $entityManager->persist($book);
 
         try {
             $entityManager->flush();
         } catch (\Throwable $e) {
-            exit("Erreur durant l'ajout du livre en base de donnée.");
+            exit("Erreur durant l'ajout du journal en base de donnée.");
         }
 
-        $entityManager = Em::getEntityManager();
-        $bookRepository = new AbstractRepository($entityManager, new ClassMetadata("App\Entity\Book"));
+        $entityManager = EntityManagerHelper::getEntityManager();
+        $bookRepository = new AbstractRepository($entityManager, new ClassMetadata("App\Entity\Newspaper"));
         print($this->serialize($bookRepository->findBy(['title' => $this->NEEDLES['title']], ['id' => 'DESC'], 1, 0), 'json'));
     }
 
     public function modify(?int $iUserID) :void
     {
+        $puts = $this->getPutFromRequest();
         foreach ($this->NEEDLES as $key => $value) {
             try {
                 if (!array_key_exists($key, $puts)) {
@@ -76,8 +77,8 @@ final class BookController extends AbstractController
                 exit($e->getMessage());
             }
         }
-        $entityManager = Em::getEntityManager();
-        $bookRepository = new AbstractRepository($entityManager, new ClassMetadata("App\Entity\Book"));
+        $entityManager = EntityManagerHelper::getEntityManager();
+        $bookRepository = new AbstractRepository($entityManager, new ClassMetadata("App\Entity\Newspaper"));
         $book = $bookRepository->find($iUserID);
 
         $book->setTitle($this->NEEDLES['title'])->setAuthor($this->NEEDLES['author']);

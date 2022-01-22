@@ -5,7 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Model\VisitorModel.php")
+ * @ORM\Entity
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="unique_visitor_details", fields={"piece_ident"})})
  */ 
 final class Visitor extends Member
 {

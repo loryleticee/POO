@@ -1,27 +1,11 @@
 <?php 
-
 namespace App;
 
 require_once('vendor/autoload.php');
 
 use Router\Router;
 
-const PUTS_METHOD = [
-    'application/json',
-    'application/x-www-form-urlencoded'
-];
-$_PUTS='';
-if ($_SERVER["REQUEST_METHOD"] === "PUT") {
-    if(!array_key_exists("CONTENT_TYPE", $_SERVER)) {
-        exit("NEED BODY ");
-    }
-    if(!in_array($_SERVER["CONTENT_TYPE"], PUTS_METHOD)) {
-        exit("no");
-    }
-    $_PUTS= fopen("php://input", "r"); 
-}
-
-$router = new Router($_GET['url'], $_PUTS , $_POST);
+$router = new Router($_GET['url']);
 
 $router->get("/", "App\Controller\AppController@index");
 
@@ -33,4 +17,19 @@ $router->get("/visitors" , "App\Controller\VisitorController@index");
 $router->post("/visitor" , "App\Controller\VisitorController@add");
 $router->put("/visitor/:id" , "App\Controller\VisitorController@modify");
 
+$router->post("/newspapers", "App\Controller\NewspaperController@show");
+$router->post("/newspaper", "App\Controller\NewspaperController@add");
+$router->get("/newspaper/:id", "App\Controller\NewspaperController@showOne");
+
+$router->get("/dictionary/:id", "App\Controller\DicitonaryController@showOne");
+$router->get("/dictionary", "App\Controller\DicitonaryController@show");
+
+$router->post("/employee/:id", "App\Controller\EmployeeController@modify");
+$router->get("/employee/:id", "App\Controller\EmployeeController@modify");
+$router->post("/employee", "App\Controller\EmployeeController@add");
+
 $router->run();
+
+
+
+

@@ -28,6 +28,10 @@ abstract class Member implements UserInterface
 
     private static $nbrMember; 
 
+    /**
+     *@param string $l The lastname
+     *@param string $f The firstname
+     */
     public function __construct(string $l, string $f)
     {
         $this->lastname = $l;

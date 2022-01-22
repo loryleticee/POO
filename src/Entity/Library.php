@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 // Inclure dans la classe Library, les classes de typage de doctrine par l'alias nommé ici ORM
-use Doctrine\ORM\Mapping\Id as ORM;
+use Doctrine\ORM\Mapping as ORM;
 
 // Cette annotation Utilise la Classe Entity de Doctrine pour préciser que cette classe devra être transformer en table 
 
