@@ -9,7 +9,7 @@ use \DateTime;
 /**
  * @ORM\Entity
  */
-final class Borrow
+class Borrow
 {
     /**
      * @ORM\Id
@@ -93,5 +93,60 @@ final class Borrow
     private  function getReturnDelay(): string
     {
         return $this->delay;
+    }
+
+    /**
+     * Get the value of member
+     *
+     * @return Member
+     */
+    public function getMember(): Member
+    {
+        return $this->member;
+    }
+
+    /**
+     * Set the value of member
+     *
+     * @param Member $member
+     *
+     * @return self
+     */
+    public function setMember(Member $member): self
+    {
+        $this->member = $member;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of book
+     *
+     * @return Book
+     */
+    public function getBook(): Book
+    {
+        return $this->book;
+    }
+
+    /**
+     * Set the value of book
+     *
+     * @param Book $book
+     *
+     * @return self
+     */
+    public function setBook(Book $book): self
+    {
+        $this->book = $book;
+
+        return $this;
+    }
+
+    public function setBorrow_date(DateTime $borrow_date): self
+    {
+        $this->borrow_date = $borrow_date; 
+
+        return $this;
     }
 }

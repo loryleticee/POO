@@ -6,8 +6,14 @@ use App\Interface\UserInterface;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\MappedSuperclass */
-abstract class Member implements UserInterface
+/**
+ * @ORM\Entity
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"visitor" = "Visitor", "employee" = "Employee"})
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="unique_visitor_details", columns={"piece_ident", "badge_number"})})
+ */
+class Member implements UserInterface
 {
     /**
      * @ORM\Id
@@ -19,14 +25,14 @@ abstract class Member implements UserInterface
     /**
      * @ORM\Column(length="100")
     */
-    private string $lastname;
+    protected string $lastname;
     
     /**
      * @ORM\Column(length="100")
     */
-    private string $firstname;
+    protected string $firstname;
 
-    private static $nbrMember; 
+    protected static $nbrMember; 
 
     /**
      *@param string $l The lastname
@@ -98,8 +104,9 @@ abstract class Member implements UserInterface
     {
     }
 
-    public static  function GiveMeNumber() : int
+    public function borrowBook(Book $book)
     {
-       return 3;
+        
     }
+
 }

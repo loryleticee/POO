@@ -1,6 +1,3 @@
-<?php 
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,14 +22,14 @@ session_start();
 <body>
     <div>
         <?php 
-            if (array_key_exists("error", $_SESSION)) {
-               echo $_SESSION["error"];
-               unset($_SESSION["error"]);
+            if (isset($error)) {
+               echo $error;
+               unset($error);
             }
         ?>
     </div>
     <?php 
-        $id = isset($_SESSION["employeeDatas"]["id"]) ? $_SESSION["employeeDatas"]["id"] : "";
+        $id = isset($employeeDatas["id"]) ? $employeeDatas["id"] : "";
     ?>
     <form action=<?="/employee/$id"?> method="POST" id="form_controller">
         <label for="lastname">NOM: </label>
@@ -41,8 +38,8 @@ session_start();
             name="lastname" 
             id="lastname"
             value="<?php
-               echo isset($_SESSION["employeeDatas"]["lastname"]) 
-               ? $_SESSION["employeeDatas"]["lastname"] 
+               echo isset($employeeDatas["lastname"]) 
+               ? $employeeDatas["lastname"] 
                : "";
             ?>"
        />
@@ -52,7 +49,7 @@ session_start();
             name="firstname" 
             id="firstname"
             value="<?php
-               echo isset($_SESSION["employeeDatas"]["firstname"]) ? $_SESSION["employeeDatas"]["firstname"] : "";
+               echo isset($employeeDatas["firstname"]) ? $employeeDatas["firstname"] : "";
             ?>"
         />
         <label for="badge_number">NUMERO DE BADGE: </label>
@@ -61,7 +58,7 @@ session_start();
             name="badge_number" 
             id="badge_number"
             value="<?php
-               echo isset($_SESSION["employeeDatas"]["badge_number"]) ? $_SESSION["employeeDatas"]["badge_number"] : "";
+               echo isset($employeeDatas["badge_number"]) ? $employeeDatas["badge_number"] : "";
             ?>"
         />
         <input type="submit" value="ENREGISTRER LES MODIFICATIONS">

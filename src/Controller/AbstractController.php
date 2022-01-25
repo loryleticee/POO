@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-session_start();
 
 use Router\Router;
 use Symfony\Component\Serializer\Serializer;
@@ -77,7 +76,7 @@ abstract class AbstractController
      * Check if $inputs contains all keys in $needles
      * @param array $inputs array of datas to checks
      * @param array $needles array of keys required
-     * @param string $url path for where redirect user on failure
+     * @param string $url path where redirect user on failure
      * 
      * @return array inputs array cleaned from htmlchars
      */
@@ -85,8 +84,9 @@ abstract class AbstractController
     {
         foreach ($needles as $value) {
             if(!array_key_exists($value, $inputs)) {
-                $_SESSION["error"] = "Il manque des champs à remplir";
-                Router::redirect($url);
+                $error = "Il manque des champs à remplir";
+                include(__DIR__."/..".$url);
+                exit();
             }
             $inputs[$value] = htmlentities(strip_tags($inputs[$value]));
         }

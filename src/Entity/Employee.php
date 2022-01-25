@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-final class Employee extends Member
+class Employee extends Member
 {
 
     /**

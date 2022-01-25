@@ -3,10 +3,13 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\MappedSuperclass
- * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="unique_book_details", fields={"title", "author"})})
+/** @ORM\Entity
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"newspaper" = "Newspaper", "dictionary" = "Dictionary", "bd" = "Bd", "book" = "Book" })
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="unique_document_details", fields={"title", "author"})})
  */
-abstract class Document {
+class Document {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

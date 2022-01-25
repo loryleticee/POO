@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /** 
  * @ORM\MappedSuperclass 
  * */
-abstract class Volume extends Document
+class Volume extends Document
 {
     /**
      * @ORM\Column(length="100")

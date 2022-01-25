@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 
 final class BookController extends AbstractController
 {
-    public array $NEEDLES = ['title' => '', 'author' => '',];
+    public array $NEEDLES = ['title', 'author'];
 
     public function index() :void
     {
@@ -27,8 +27,9 @@ final class BookController extends AbstractController
 
     public function add() :void
     {
+    
         $posts = $_POST;
-        foreach ($this->NEEDLES as $key => $value) {
+        foreach ($this->NEEDLES as $key) {
             try {
                 if (!array_key_exists($key, $posts)) {
                     throw new \Exception("No key $key found");
@@ -61,7 +62,9 @@ final class BookController extends AbstractController
 
     public function modify(?int $iUserID) :void
     {
-        foreach ($this->NEEDLES as $key => $value) {
+        $puts = $this->getPutFromRequest();
+
+        foreach ($this->NEEDLES as $key) {
             try {
                 if (!array_key_exists($key, $puts)) {
                     throw new \Exception("No key $key found");

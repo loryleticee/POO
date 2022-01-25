@@ -8,8 +8,7 @@ use Router\Route;
 class Router {
     public string $url;
     public array $routes = [];
-    public array $posts = [];
-    public array $puts = [];
+    
 
     public function __construct(string $url)
     {

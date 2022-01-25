@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="unique_visitor_details", fields={"piece_ident"})})
  */ 
-final class Visitor extends Member
+class Visitor extends Member
 {
     /** @ORM\Column(length=140) */
     private string $piece_ident;

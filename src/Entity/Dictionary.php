@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-final class Dictionary  extends Volume
+class Dictionary  extends Volume
 {
     /**
      * @ORM\Column(length="100")

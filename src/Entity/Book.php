@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-final class Book extends Volume {
+class Book extends Volume {
   
     /**
      * ORM\Column(type="integer")

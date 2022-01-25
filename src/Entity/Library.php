@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-final class Library
+class Library
 {
     // @ORM\Id avec la classe de typage Id; précise que la propriété $id sera une clé primaire
     // @ORM\GeneratedValue avec la classe de typage GeneratedValue; précise que la colonne id sera de type AUTO_INCREMENT

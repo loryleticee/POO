@@ -1,6 +1,3 @@
-<?php 
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,9 +22,9 @@ session_start();
 <body>
     <div>
         <?php 
-            if (array_key_exists("error", $_SESSION)) {
-               echo $_SESSION["error"];
-               unset($_SESSION["error"]);
+            if (isset($error)) {
+               echo $error;
+               unset($error);
             }
         ?>
     </div>
